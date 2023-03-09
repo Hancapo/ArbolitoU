@@ -1,28 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using ArbolitoU.Utils;
+using Wpf.Ui.Controls;
 using Wpf.Ui.Controls.Window;
 
-namespace ArbolitoU
+namespace ArbolitoU.UI;
+
+/// <summary>
+///     Interaction logic for MainWindow.xaml
+/// </summary>
+public partial class MainWindow : FluentWindow
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : FluentWindow
+    public MainWindow()
     {
-        public MainWindow()
-        {
-        }
+        InitializeComponent();
+    }
+
+    private void SelectYmapClick(object sender, RoutedEventArgs e)
+    {
+        var msgBox = new SimpleFluentMessageBox("File Selection",
+                "Please select your file\nMis amigos",
+                "Accept",
+                "Cancel",
+                ControlAppearance.Transparent,
+                ControlAppearance.Info)
+            .ShowDialog();
+    }
+
+
+    private void ExitClick(object sender, RoutedEventArgs e)
+    {
+        Application.Current.Shutdown();
     }
 }
