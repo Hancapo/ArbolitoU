@@ -1,11 +1,12 @@
 ﻿<Page x:Class="ArbolitoU.Pages.Map_Tools.YMAP.YmapSplitter"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
-      Title="YmapSplitter" Height="Auto" Width="800">
-    <Grid Background="Transparent">
+      Title="YmapSplitter" Height="570" Width="960">
+    <Grid Margin="30" Background="Transparent">
         <Label Content="TESTING PAGE" Foreground="Black" FontSize="100" />
     </Grid>
 </Page>
