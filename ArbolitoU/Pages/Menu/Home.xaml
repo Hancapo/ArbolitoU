@@ -10,13 +10,13 @@
       xmlns:local="clr-namespace:ArbolitoU.Pages.Menu"
       mc:Ignorable="d"
       Height="570" Width="960">
-    <Grid Margin="30">
+    <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Border Height="200" CornerRadius="8">
+        <Border Margin="20" Height="200" CornerRadius="8">
             <Border.Background>
                 <ImageBrush Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality" ImageSource="/Images/bermuda-traingle.png">
                     
@@ -30,7 +30,7 @@
                 </StackPanel>
             </Grid>
         </Border>
-        <Grid HorizontalAlignment="Center" Row="1" Margin="0,24,0,0">
+        <Grid HorizontalAlignment="Center" Row="2" Margin="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -46,13 +46,26 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <ui:SymbolIcon Symbol="Book24" FontSize="60"></ui:SymbolIcon>
-                    <StackPanel VerticalAlignment="Center" Margin="10" Grid.Column="1" Orientation="Vertical">
+                    <StackPanel VerticalAlignment="Center" Margin="5" Grid.Column="1" Orientation="Vertical">
                         <TextBlock Text="Documentation" FontWeight="Bold"/>
-                        <TextBlock TextWrapping="WrapWithOverflow" Text="Learn more about ArbolitoU and other tools here."/>
+                        <TextBlock TextWrapping="Wrap" Text="Learn more about ArbolitoU and other tools here."/>
                     </StackPanel>
                 </Grid>
             </ui:CardAction>
             <ui:CardAction Height="130" Margin="5" Grid.Column="1" Grid.Row="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="/Images/github-mark-white.png" RenderOptions.BitmapScalingMode="HighQuality" Height="60" Width="Auto"/>
+                    <StackPanel VerticalAlignment="Center" Margin="5" Grid.Column="1" Orientation="Vertical">
+                        <TextBlock Text="GitHub" FontWeight="Bold"/>
+                        <TextBlock TextWrapping="WrapWithOverflow" Text="Check ArbolitoU's GitHub page here."/>
+                    </StackPanel>
+                </Grid>
+            </ui:CardAction>
+            <ui:CardAction Height="130" Margin="5" Grid.Column="2" Grid.Row="0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -65,6 +78,9 @@
                     </StackPanel>
                 </Grid>
             </ui:CardAction>
+        </Grid>
+        <Grid Margin="20" Row="1">
+            <ui:InfoBar IsOpen="True" IsClosable="False" Title="Warning" Severity="Warning" Message="To use the tool properly, you must set the paths and select the folders as required, otherwise most of the functions will not work." />
         </Grid>
     </Grid>
 </Page>
