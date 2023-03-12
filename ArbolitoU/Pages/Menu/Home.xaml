@@ -39,7 +39,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <ui:CardAction Height="130" Margin="5">
+            <ui:CardAction Margin="5" Width="270" Height="130">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -52,7 +52,7 @@
                     </StackPanel>
                 </Grid>
             </ui:CardAction>
-            <ui:CardAction Height="130" Margin="5" Grid.Column="1" Grid.Row="0">
+            <ui:CardAction Height="130" Width="270" Margin="5" Grid.Column="1" Grid.Row="0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -65,7 +65,7 @@
                     </StackPanel>
                 </Grid>
             </ui:CardAction>
-            <ui:CardAction Height="130" Margin="5" Grid.Column="2" Grid.Row="0">
+            <ui:CardAction Height="130" Width="270" Margin="5" Grid.Column="2" Grid.Row="0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>

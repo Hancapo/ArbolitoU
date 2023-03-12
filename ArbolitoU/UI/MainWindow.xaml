@@ -136,6 +136,8 @@
                             <ui:NavigationViewItem.MenuItems>
                                 <ui:NavigationViewItem Content="Resource Checker"/>
                                 <ui:NavigationViewItem Content="Cache Cleaner"/>
+                                <ui:NavigationViewItem Content="Weapon Resource Creator"/>
+                                <ui:NavigationViewItem Content="Ped Resource Creator"/>
                             </ui:NavigationViewItem.MenuItems>
                         </ui:NavigationViewItem>
                     </ui:NavigationView.MenuItems>

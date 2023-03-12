@@ -14,10 +14,11 @@
         <ui:DynamicScrollViewer Height="450" VerticalAlignment="Top" VerticalScrollBarVisibility="Auto" IsScrollingVertically="True" IsScrollingHorizontally="False">
             <StackPanel>
                 <TextBlock FontSize="20" FontWeight="Medium" Text="Settings"/>
+                <TextBlock Margin="0, 32,0,0" Text="Personalization" FontWeight="Medium" FontSize="18"/>
                 <TextBlock Margin="0, 12,0,0" Text="Theme"/>
                 <RadioButton Checked="RbLight_OnChecked" x:Name="rbLight" Margin="0,12,0,0" Content="Light" GroupName="themeSelect"/>
                 <RadioButton Checked="RbDark_OnChecked" x:Name="rbDark" Margin="0,8,0,0" Content="Dark" GroupName="themeSelect"/>
-                <TextBlock Margin="0,24,0,0" Text="Paths"/>
+                <TextBlock Margin="0,24,0,0" Text="Paths" FontWeight="Medium" FontSize="18"/>
                 <StackPanel Margin="0,16,0,0" Orientation="Horizontal">
                     <ui:TextBox x:Name="tbOutputFolder" PlaceholderText="Output Folder"  Width="400" MaxLines="1" />
                     <ui:Button x:Name="btnBrowseOutput" Click="BtnBrowseOutput_OnClick" Margin="10,0" Height="35" Icon="Search24" Appearance="Primary"/>
@@ -26,7 +27,7 @@
                     <ui:TextBox x:Name="tbGTAVPath" PlaceholderText="Grand Theft Auto V"  Width="400" MaxLines="1" />
                     <ui:Button x:Name="btnBrowseGTAVPath" Click="BtnBrowseGTAVPath_OnClick" Margin="10,0" Height="35" Icon="Search24" Appearance="Primary"/>
                 </StackPanel>
-                <TextBlock Margin="0,24,0,0" Text="Gamefiles loading"/>
+                <TextBlock Margin="0,24,0,0" Text="Gamefiles loading" FontWeight="Medium" FontSize="18"/>
                 <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
                     <CheckBox x:Name="cbEnableMods" Content="Enable Mods"/>
                     <CheckBox x:Name="cbEnableDLCs" Content="Enable DLCs"/>
@@ -34,8 +35,8 @@
             </StackPanel>
         </ui:DynamicScrollViewer>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-            <ui:Button x:Name="btnDefaultSettings" Margin="5" FontWeight="Medium" Click="BtnDefaultSettings_OnClick" HorizontalAlignment="Right" Content="Reset Settings" Appearance="Primary" Icon="ArrowReset48" VerticalAlignment="Bottom"/>
-            <ui:Button x:Name="btnSaveSettings" Margin="5" FontWeight="Medium" Click="BtnSaveSettings_OnClick" HorizontalAlignment="Right" Content="Save Settings" Appearance="Primary" Icon="Save20" IconFilled="True" VerticalAlignment="Bottom"/>
+            <ui:Button x:Name="btnDefaultSettings" Margin="5" Click="BtnDefaultSettings_OnClick" HorizontalAlignment="Right" Content="Reset Settings" Appearance="Primary" Icon="ArrowReset48" VerticalAlignment="Bottom"/>
+            <ui:Button x:Name="btnSaveSettings" Margin="5" Click="BtnSaveSettings_OnClick" HorizontalAlignment="Right" Content="Save Settings" Appearance="Primary" Icon="Save20" IconFilled="True" VerticalAlignment="Bottom"/>
         </StackPanel>
         
     </Grid>
