@@ -24,7 +24,7 @@
             </Border.Background>
             <Grid>
                 <StackPanel Background="Transparent" VerticalAlignment="Center" Margin="48,0">
-                    <TextBlock Text="Grand Theft Auto V Modding Tool" FontSize="14" />
+                    <TextBlock Text="No sé qué poner aquí." FontSize="14" />
                     <TextBlock FontWeight="Bold" Text="ArbolitoU" FontSize="26" />
                     <TextBlock Text="A set of tools to bring your mods to life." FontSize="14" />
                 </StackPanel>
@@ -80,7 +80,7 @@
             </ui:CardAction>
         </Grid>
         <Grid Margin="20" Row="1">
-            <ui:InfoBar IsOpen="True" IsClosable="False" Title="Warning" Severity="Warning" Message="To use the tool properly, you must set the paths and select the folders as required, otherwise most of the functions will not work." />
+            <ui:InfoBar IsOpen="True" IsClosable="False" Title="Warning" Severity="Warning" Message="To use the tool properly, you must set the paths and select the folders/files as required, otherwise most of the functions will not work." />
         </Grid>
     </Grid>
 </Page>

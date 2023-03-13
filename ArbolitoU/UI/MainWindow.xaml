@@ -4,7 +4,7 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mapTools="clr-namespace:ArbolitoU.Pages.Map_Tools"
+    xmlns:mapTools="clr-namespace:ArbolitoU.Pages.MapTools"
     xmlns:menuStuff="clr-namespace:ArbolitoU.Pages.Menu"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -51,6 +51,16 @@
                         <MenuItem Header="Select YNV(s)" Click="SelectYnvClick">
                             <MenuItem.Icon>
                                 <ui:SymbolIcon Symbol="Location24" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="Open File(s)">
+                        <MenuItem.Icon>
+                            <ui:SymbolIcon Symbol="ClipboardTextLtr24" />
+                        </MenuItem.Icon>
+                        <MenuItem Header="Select Text File" Click="SelectTextFileClick">
+                            <MenuItem.Icon>
+                                <ui:SymbolIcon Symbol="DocumentText24" />
                             </MenuItem.Icon>
                         </MenuItem>
                     </MenuItem>
@@ -101,8 +111,7 @@
                             </ui:NavigationViewItem.Icon>
                             <ui:NavigationViewItem.MenuItems>
                                 <ui:NavigationViewItem Content="Splitter" TargetPageType="{x:Type mapTools:YMAP.YmapSplitter}"/>
-                                <ui:NavigationViewItem Content="Merger"/>
-                                <ui:NavigationViewItem Content="Prop Replacer"/>
+                                <ui:NavigationViewItem Content="Merger" TargetPageType="{x:Type mapTools:YMAP.YmapMerger}"/>
                             </ui:NavigationViewItem.MenuItems>
                         </ui:NavigationViewItem>
                         <ui:NavigationViewItem Content="YTYP Tools">
@@ -115,7 +124,7 @@
                                 <ui:SymbolIcon Symbol="DriveTrain24" Filled="True" />
                             </ui:NavigationViewItem.Icon>
                             <ui:NavigationViewItem.MenuItems>
-                                <ui:NavigationViewItem Content="Mover"/>
+                                <ui:NavigationViewItem Content="Mover" TargetPageType="{x:Type mapTools:Misc.TrainMover}"/>
                             </ui:NavigationViewItem.MenuItems>
                         </ui:NavigationViewItem>
                         <ui:NavigationViewItem Content="NavMesh Tools">
@@ -125,6 +134,11 @@
                             <ui:NavigationViewItem.MenuItems>
                                 <ui:NavigationViewItem Content="YNV to ONV"/>
                             </ui:NavigationViewItem.MenuItems>
+                        </ui:NavigationViewItem>
+                        <ui:NavigationViewItem Content="Prop Replacer" TargetPageType="{x:Type mapTools:Misc.PropReplacer}">
+                            <ui:NavigationViewItem.Icon>
+                                <ui:SymbolIcon Symbol="Fireplace48"/>
+                            </ui:NavigationViewItem.Icon>
                         </ui:NavigationViewItem>
                         <ui:NavigationViewItemSeparator></ui:NavigationViewItemSeparator>
                         <Label Margin="7,5,0,0" FontSize="16" Content="Misc Tools"/>

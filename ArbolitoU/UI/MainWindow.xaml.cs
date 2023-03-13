@@ -31,8 +31,12 @@ public partial class MainWindow : FluentWindow
     public List<string> YtypFiles { get; set; }
     public List<string> YnvFiles { get; set; }
     public List<string> TrainsFiles { get; set; }
+    
+    public string textFile { get; set; }
     public MainWindow()
     {
+        //Set app thread culture to en-US
+        System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
         InitializeComponent();
     }
 
@@ -138,5 +142,23 @@ public partial class MainWindow : FluentWindow
         {
             YnvFiles = new List<string>(Directory.GetFiles(ynvDialog.SelectedPath, "*.ynv"));
         }
+    }
+
+    private void SelectTextFileClick(object sender, RoutedEventArgs e)
+    {
+        var fileDialog = new VistaOpenFileDialog
+        {
+            Filter = "Text files (*.txt)|*.txt",
+            Multiselect = false,
+            Title = "Select the text file containing the archetype names"
+        };
+        
+        if (fileDialog.ShowDialog() != true) return;
+        textFile = fileDialog.FileName;
+        new SimpleFluentMessageBox( "Success", "Text file selected successfully.", "Accept", "Cancel", ControlAppearance.Success, ControlAppearance.Primary).ShowDialog();
+        
+        
+            
+        
     }
 }

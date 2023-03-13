@@ -16,7 +16,7 @@
                 <TextBlock FontSize="20" FontWeight="Medium" Text="Settings"/>
                 <TextBlock Margin="0, 32,0,0" Text="Personalization" FontWeight="Medium" FontSize="18"/>
                 <TextBlock Margin="0, 12,0,0" Text="Theme"/>
-                <RadioButton Checked="RbLight_OnChecked" x:Name="rbLight" Margin="0,12,0,0" Content="Light" GroupName="themeSelect"/>
+                <RadioButton IsEnabled="False" Checked="RbLight_OnChecked" x:Name="rbLight" Margin="0,12,0,0" Content="Light (W.I.P)" GroupName="themeSelect"/>
                 <RadioButton Checked="RbDark_OnChecked" x:Name="rbDark" Margin="0,8,0,0" Content="Dark" GroupName="themeSelect"/>
                 <TextBlock Margin="0,24,0,0" Text="Paths" FontWeight="Medium" FontSize="18"/>
                 <StackPanel Margin="0,16,0,0" Orientation="Horizontal">
@@ -26,6 +26,14 @@
                 <StackPanel Margin="0,16,0,0" Orientation="Horizontal">
                     <ui:TextBox x:Name="tbGTAVPath" PlaceholderText="Grand Theft Auto V"  Width="400" MaxLines="1" />
                     <ui:Button x:Name="btnBrowseGTAVPath" Click="BtnBrowseGTAVPath_OnClick" Margin="10,0" Height="35" Icon="Search24" Appearance="Primary"/>
+                </StackPanel>
+                <StackPanel Margin="0,16,0,0" Orientation="Horizontal">
+                    <ui:TextBox PlaceholderText="Local FXServer" Width="400" MaxLines="1" />
+                    <ui:Button Margin="10,0" Height="35" Icon="Search24" Appearance="Primary"/>
+                </StackPanel>
+                <StackPanel Margin="0,16,0,0" Orientation="Horizontal">
+                    <ui:TextBox PlaceholderText="FiveM" Width="400" MaxLines="1" />
+                    <ui:Button Margin="10,0" Height="35" Icon="Search24" Appearance="Primary"/>
                 </StackPanel>
                 <TextBlock Margin="0,24,0,0" Text="Gamefiles loading" FontWeight="Medium" FontSize="18"/>
                 <StackPanel Orientation="Horizontal" Margin="0,16,0,0">

@@ -1,4 +1,4 @@
-﻿<Page x:Class="ArbolitoU.Pages.MapTools.YMAP.YmapSplitter"
+﻿<Page x:Class="ArbolitoU.Pages.MapTools.YMAP.YmapMerger"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -8,12 +8,11 @@
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       mc:Ignorable="d"
-      Title="YmapSplitter" Height="570" Width="960">
+      Title="YmapMerger" Height="570" Width="960">
     <Grid Margin="20">
         <StackPanel HorizontalAlignment="Left">
-            <TextBlock Margin="5" Text="Separate by"></TextBlock>
-            <ComboBox SelectedIndex="0" Margin="5" x:Name="CbSeparateBy" Width="200"/>
-            <ui:Button Appearance="Primary" Content="Split" Icon="ArrowSplit24" Margin="5"/>
+            <ui:TextBox PlaceholderText="YMAP name" Icon="Map24"  Width="300" Margin="5"/>
+            <ui:Button Appearance="Primary" Content="Merge" Icon="Merge24" Margin="5"/>
         </StackPanel>
     </Grid>
 </Page>

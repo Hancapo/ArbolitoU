@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Controls;
 
-namespace ArbolitoU.Pages.Map_Tools.YMAP;
+namespace ArbolitoU.Pages.MapTools.YMAP;
 
 public partial class YmapSplitter : Page
 {
     public YmapSplitter()
     {
         InitializeComponent();
-        cbSeparateBy.ItemsSource = new List<string> {"YTYPs", "Text file"};
+        CbSeparateBy.ItemsSource = new List<string> {"YTYPs", "Text file"};
     }
 }
