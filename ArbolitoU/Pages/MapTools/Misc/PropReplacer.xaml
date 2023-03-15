@@ -21,9 +21,9 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <ui:TextBox Width="200" Icon="BoxMultipleArrowRight24" Margin="5"/>
+                <ui:TextBox PlaceholderText="From" Width="200" Icon="BoxMultipleArrowRight24" Margin="5"/>
                 <ui:SymbolIcon Margin="5" FontSize="20" Symbol="ArrowRight20"/>
-                <ui:TextBox Width="200" Margin="5" Icon="BoxMultipleCheckmark24"/>
+                <ui:TextBox PlaceholderText="To" Width="200" Margin="5" Icon="BoxMultipleCheckmark24"/>
             </StackPanel>
             <StackPanel Grid.Row="1" HorizontalAlignment="Center">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

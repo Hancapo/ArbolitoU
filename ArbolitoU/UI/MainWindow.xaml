@@ -90,7 +90,7 @@
             <Grid>
                 <ui:NavigationView IsPaneToggleVisible="False" IsBackButtonVisible="Collapsed" Loaded="ArbolitoNavigation_OnLoaded" x:Name="ArbolitoNavigation" PaneDisplayMode="Left" FlowDirection="LeftToRight">
                     <ui:NavigationView.AutoSuggestBox>
-                        <ui:AutoSuggestBox PlaceholderText="Search" Margin="8"/>
+                        <ui:AutoSuggestBox x:Name="AutoSuggest" PlaceholderText="Search" Margin="8"/>
                     </ui:NavigationView.AutoSuggestBox>
                     <ui:NavigationView.MenuItems>   
                         <ui:NavigationViewItem Content="Home" TargetPageType="{x:Type menuStuff:Home}">
