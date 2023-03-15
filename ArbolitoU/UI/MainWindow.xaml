@@ -88,7 +88,7 @@
         </Grid>
         <Grid Margin="1" Row="2">
             <Grid>
-                <ui:NavigationView IsPaneToggleVisible="False" IsBackButtonVisible="Collapsed" Loaded="ArbolitoNavigation_OnLoaded" x:Name="ArbolitoNavigation" PaneDisplayMode="Left" FlowDirection="LeftToRight">
+                <ui:NavigationView IsPaneToggleVisible="False" IsPaneOpen="True" IsBackButtonVisible="Collapsed" Loaded="ArbolitoNavigation_OnLoaded" x:Name="ArbolitoNavigation">
                     <ui:NavigationView.AutoSuggestBox>
                         <ui:AutoSuggestBox x:Name="AutoSuggest" PlaceholderText="Search" Margin="8"/>
                     </ui:NavigationView.AutoSuggestBox>
