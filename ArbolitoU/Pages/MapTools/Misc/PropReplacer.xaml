@@ -26,43 +26,43 @@
                 <ui:TextBox Width="200" Margin="5" Icon="BoxMultipleCheckmark24"/>
             </StackPanel>
             <StackPanel Grid.Row="1" HorizontalAlignment="Center">
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Label Content="Rotation Offset" Margin="5" VerticalAlignment="Center"/>
-                    <ui:NumberBox Margin="5" AcceptsExpression="True" PlaceholderText="X" Background="#591b1b" Width="200" MaxDecimalPlaces="6" Minimum="-30000" Maximum="30000"/>
-                    <ui:NumberBox Margin="5" AcceptsExpression="True" PlaceholderText="Y" Background="#1b5935" Width="200" MaxDecimalPlaces="6" Minimum="-30000" Maximum="30000"/>
-                    <ui:NumberBox Margin="5" AcceptsExpression="True" PlaceholderText="Z" Background="#1b3259" Width="200" MaxDecimalPlaces="6" Minimum="-30000" Maximum="30000"/>
-                    <ComboBox SelectedIndex="0" Margin="5" Width="150">
+                    <ui:NumberBox Margin="5" AcceptsExpression="True" PlaceholderText="X" Background="#591b1b" Width="140" MaxDecimalPlaces="6" Minimum="-30000" Maximum="30000"/>
+                    <ui:NumberBox Margin="5" AcceptsExpression="True" PlaceholderText="Y" Background="#1b5935" Width="140" MaxDecimalPlaces="6" Minimum="-30000" Maximum="30000"/>
+                    <ui:NumberBox Margin="5" AcceptsExpression="True" PlaceholderText="Z" Background="#1b3259" Width="140" MaxDecimalPlaces="6" Minimum="-30000" Maximum="30000"/>
+                    <ComboBox SelectedIndex="0" Margin="5" Width="120">
                         <ComboBoxItem Content="Local"/>
                         <ComboBoxItem Content="Global"/>
                     </ComboBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="Position Offset" Margin="6" VerticalAlignment="Center"/>
-                    <ui:NumberBox Margin="5" AcceptsExpression="True" PlaceholderText="X" Background="#591b1b" Width="200" MaxDecimalPlaces="6" Minimum="-30000" Maximum="30000"/>
-                    <ui:NumberBox Margin="5" AcceptsExpression="True" PlaceholderText="Y" Background="#1b5935" Width="200" MaxDecimalPlaces="6" Minimum="-30000" Maximum="30000"/>
-                    <ui:NumberBox Margin="5" AcceptsExpression="True" PlaceholderText="Z" Background="#1b3259" Width="200" MaxDecimalPlaces="6" Minimum="-30000" Maximum="30000"/>
-                    <ComboBox SelectedIndex="0" Margin="5" Width="150">
+                    <Label Content="Position Offset" Margin="6.45" VerticalAlignment="Center"/>
+                    <ui:NumberBox Margin="5" AcceptsExpression="True" PlaceholderText="X" Background="#591b1b" Width="140" MaxDecimalPlaces="6" Minimum="-30000" Maximum="30000"/>
+                    <ui:NumberBox Margin="5" AcceptsExpression="True" PlaceholderText="Y" Background="#1b5935" Width="140" MaxDecimalPlaces="6" Minimum="-30000" Maximum="30000"/>
+                    <ui:NumberBox Margin="5" AcceptsExpression="True" PlaceholderText="Z" Background="#1b3259" Width="140" MaxDecimalPlaces="6" Minimum="-30000" Maximum="30000"/>
+                    <ComboBox SelectedIndex="0" Margin="5" Width="120">
                         <ComboBoxItem Content="Local"/>
                         <ComboBoxItem Content="Global"/>
                     </ComboBox>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2">
-                <ui:Button Icon="Add20" Margin="5" Appearance="Primary" Width="100" Content="Add" />
-                <ui:Button Icon="ArrowBounce24" Margin="5" Appearance="Primary" Width="100" Content="Reset" />
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2">
+                <ui:Button Icon="Add20" Margin="5" Appearance="Success" Width="100" Content="Add" />
+                <ui:Button Icon="ArrowBounce24" Margin="5" Appearance="Info" Width="100" Content="Reset" />
             </StackPanel>
         </Grid>
-        <Grid Margin="5" Grid.Row="1">
+        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="5*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <ui:DataGrid/>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1">
-                <ui:Button Margin="5" Width="120" Icon="Run24" Appearance="Primary" Content="Process"/>
-                <ui:Button Margin="5" Width="120" Icon="EraserMedium24" Appearance="Primary" Content="Clear List"/>
-                <ui:Button Margin="5" Width="120" Icon="TrayItemRemove24" Appearance="Danger" Content="Remove"/>
-                <ui:Button Margin="5" Width="120" Icon="Edit32" Appearance="Info" Content="Edit"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1">
+                <ui:Button Margin="0,0,5,0" Width="120" Icon="Run24" Appearance="Primary" Content="Process"/>
+                <ui:Button Margin="0,0,5,0" Width="120" Icon="EraserMedium24" Appearance="Caution" Content="Clear List"/>
+                <ui:Button Margin="0,0,5,0" Width="120" Icon="TrayItemRemove24" Appearance="Danger" Content="Remove"/>
+                <ui:Button Margin="0,0,5,0" Width="120" Icon="Edit32" Appearance="Info" Content="Edit"/>
             </StackPanel>
         </Grid>
     </Grid>
