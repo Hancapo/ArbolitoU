@@ -1,0 +1,60 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
+        xmlns:ic="using:FluentAvalonia.FluentIcons"
+        ExtendClientAreaToDecorationsHint="True"
+        xmlns:ui="using:FluentAvalonia.UI.Controls"
+        xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+        x:Class="ArbolitoU.MainWindow"
+        Title="ArbolitoU">
+    <Panel>
+        <ExperimentalAcrylicBorder IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial
+                    BackgroundSource="Digger"
+                    TintColor="Black"
+                    TintOpacity=".5"
+                    MaterialOpacity="1" />
+            </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
+        <Grid RowDefinitions="40,*,50">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel>
+                    <Menu>
+                        <MenuItem Header="File">aa</MenuItem>
+                        <MenuItem Header="Help">aa</MenuItem>
+                    </Menu>
+                
+                </StackPanel>
+            
+            </StackPanel>   
+            <Grid Row="1">
+                <ui:NavigationView OpenPaneLength="200"  PaneDisplayMode="Left" IsPaneOpen="True">
+                    <ui:NavigationView.MenuItems>
+                        <ui:NavigationViewItem IconSource="Home" Content="Home"/>
+                        <ui:NavigationViewItemSeparator/>
+                        <ui:NavigationViewItemHeader Content="Map Tools"/>
+                        <ui:NavigationViewItem IconSource="Map" Content="YMAP Tools">
+                            <ui:NavigationViewItem.MenuItems>
+                                <ui:NavigationViewItem Content="Splitter" IconSource="XboxOneConsole"/>
+                                <ui:NavigationViewItem Content="Merger" IconSource="CloudOff"/>
+                            </ui:NavigationViewItem.MenuItems>
+                        </ui:NavigationViewItem>
+                        <ui:NavigationViewItemSeparator/>
+                        <ui:NavigationViewItemHeader Content="Misc Tools"/>
+                        <ui:NavigationViewItem IconSource="ImageAltTextFilled" Content="File Extractor"/>
+
+                    </ui:NavigationView.MenuItems>
+                </ui:NavigationView>
+            </Grid>
+            <Grid Row="2">
+            
+            </Grid>
+        
+        </Grid>
+    </Panel>
+</Window>
