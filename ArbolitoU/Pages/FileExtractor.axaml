@@ -1,0 +1,29 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             Background="Transparent"
+             x:Class="ArbolitoU.Pages.FileExtractor">
+    <Grid Margin="20">
+        <StackPanel>
+            <StackPanel Margin="10, 10, 0,0">
+                <Label Margin="-5,0,0,10" FontSize="30" FontWeight="DemiBold">Extraction Settings</Label>
+                <CheckBox>Extract as XML(s)</CheckBox>
+                <CheckBox Margin="0,0,0,10">Extract all textures</CheckBox>
+            </StackPanel>
+            <Separator></Separator>
+            <StackPanel Margin="10, 10, 0 ,0">
+                <ComboBox Width="200" SelectedIndex="0">
+                    <ComboBoxItem>By YMAP(s)</ComboBoxItem>
+                    <ComboBoxItem>By YTYP(s)</ComboBoxItem>
+                    <ComboBoxItem>By Text file</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Margin="10, 10,0,0">
+                <Button Width="200">Extract</Button>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid> 
+</UserControl>

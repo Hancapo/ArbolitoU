@@ -1,0 +1,36 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mdi="https://github.com/projektanker/icons.avalonia"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ArbolitoU.Pages.Settings">
+    <Grid Margin="20">
+        <ScrollViewer>
+            <StackPanel Orientation="Vertical">
+                <Label FontWeight="DemiBold" FontSize="30" Content="Settings"></Label>
+                <ui:SettingsExpander Description="Output path and GTAV path" Header="Paths" IconSource="OpenFile" Margin="0,10,0,0">
+                    <ui:SettingsExpanderItem Content="Grand Theft Auto V" Description="Set your GTA V Path">
+                        <ui:SettingsExpanderItem.Footer>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox x:Name="tbGTApath" Width="400"/>
+                                <Button PointerPressed="BtnGTAsearch_OnPointerPressed" x:Name="btnGTAsearch" mdi:Attached.Icon="mdi-folder-search" Width="35" Height="35" Margin="10,0,0,0"></Button>
+                            </StackPanel>
+                        </ui:SettingsExpanderItem.Footer>
+                    </ui:SettingsExpanderItem>
+                    <ui:SettingsExpanderItem Content="Output" Description="Set your Output folder">
+                        <ui:SettingsExpanderItem.Footer>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox x:Name="tbOutputPath" Width="400"/>
+                                <Button PointerPressed="BtnOutputSearch_OnPointerPressed" x:Name="btnOutputSearch" mdi:Attached.Icon="mdi-folder-search" Width="35" Height="35" Margin="10,0,0,0"></Button>
+                            </StackPanel>
+                        </ui:SettingsExpanderItem.Footer>
+                    </ui:SettingsExpanderItem>
+                </ui:SettingsExpander>
+
+            </StackPanel>
+        </ScrollViewer>
+
+    </Grid>
+</UserControl>

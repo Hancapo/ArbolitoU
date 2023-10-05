@@ -2,13 +2,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="https://github.com/projektanker/icons.avalonia"
         mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
         xmlns:ic="using:FluentAvalonia.FluentIcons"
-        ExtendClientAreaToDecorationsHint="True"
         xmlns:ui="using:FluentAvalonia.UI.Controls"
-        xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
         x:Class="ArbolitoU.MainWindow"
         Title="ArbolitoU">
     <Panel>
@@ -17,25 +16,36 @@
                 <ExperimentalAcrylicMaterial
                     BackgroundSource="Digger"
                     TintColor="Black"
-                    TintOpacity=".5"
-                    MaterialOpacity="1" />
+                    TintOpacity="0.4"
+                    MaterialOpacity="0.95" />
             </ExperimentalAcrylicBorder.Material>
         </ExperimentalAcrylicBorder>
         <Grid RowDefinitions="40,*,50">
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
                     <Menu>
-                        <MenuItem Header="File">aa</MenuItem>
-                        <MenuItem Header="Help">aa</MenuItem>
+                        <MenuItem Header="File">
+                            <MenuItem i:MenuItem.Icon="mdi-file-multiple" Header="Select File(s)">
+                                <MenuItem x:Name="MiSelectYMAP" PointerPressed="MiSelectYMAP_OnPointerPressed" i:MenuItem.Icon="mdi-map-legend" Header="Select YMAP(s)"/>
+                                <MenuItem x:Name="MiSelectYTYP" PointerPressed="MiSelectYTYP_OnPointerPressed" i:MenuItem.Icon="mdi-book-cog-outline" Header="Select YTYP(s)"/>
+                                <MenuItem x:Name="MiSelectTrainTracks" PointerPressed="MiSelectTrainTracks_OnPointerPressed" i:MenuItem.Icon="mdi-train" Header="Select Train Track(s)"/>
+                                <MenuItem x:Name="MiSelectTextFile" PointerPressed="MiSelectTextFile_OnPointerPressed" i:MenuItem.Icon="mdi-file-document-outline" Header="Select Text File"/>
+                            </MenuItem>
+                            <MenuItem x:Name="MenuItemQuit" PointerPressed="MenuItemQuit_OnPointerPressed" i:MenuItem.Icon="mdi-exit-run" Header="Quit"/>
+                        </MenuItem>
+                        <MenuItem Header="Help">
+                            <MenuItem i:MenuItem.Icon="mdi-github" Header="Report Bug"/>
+                            <MenuItem i:MenuItem.Icon="mdi-cat" Header="Wiam"/>
+                            <MenuItem i:MenuItem.Icon="mdi-information"  Header="About"/>
+                        </MenuItem>
                     </Menu>
-                
                 </StackPanel>
-            
             </StackPanel>   
             <Grid Row="1">
-                <ui:NavigationView OpenPaneLength="200"  PaneDisplayMode="Left" IsPaneOpen="True">
+                <ui:NavigationView IsSettingsVisible="False" x:Name="ArbolitoNavigation" OpenPaneLength="200"  PaneDisplayMode="Left" IsPaneOpen="True">
                     <ui:NavigationView.MenuItems>
-                        <ui:NavigationViewItem IconSource="Home" Content="Home"/>
+                        <ui:NavigationViewItem x:Name="HomeItem" IconSource="Home" PointerPressed="HomeItem_OnPointerPressed" Content="Home"/>
+                        <ui:NavigationViewItem x:Name="SettingsItem" IconSource="Settings" PointerPressed="SettingsItem_OnPointerPressed" Content="Settings" />
                         <ui:NavigationViewItemSeparator/>
                         <ui:NavigationViewItemHeader Content="Map Tools"/>
                         <ui:NavigationViewItem IconSource="Map" Content="YMAP Tools">
@@ -46,13 +56,18 @@
                         </ui:NavigationViewItem>
                         <ui:NavigationViewItemSeparator/>
                         <ui:NavigationViewItemHeader Content="Misc Tools"/>
-                        <ui:NavigationViewItem IconSource="ImageAltTextFilled" Content="File Extractor"/>
+                        <ui:NavigationViewItem x:Name="FileExtItem" PointerPressed="FileExtItem_OnPointerPressed" IconSource="ImageAltTextFilled" Content="File Extractor"/>
 
                     </ui:NavigationView.MenuItems>
+                    <ui:Frame x:Name="ArbolitoFrame"/>
+                    
                 </ui:NavigationView>
             </Grid>
             <Grid Row="2">
-            
+                <StackPanel Margin="15,0,0,0" Orientation="Horizontal">
+                    <Label Margin="0,12,0,0">ArbolitoU by MrVicho13</Label>
+                    <i:Icon Value="mdi-forest"/>
+                </StackPanel>
             </Grid>
         
         </Grid>

@@ -18,9 +18,17 @@
         <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.4" />
         <PackageReference Include="FluentAvalonia.FluentIcons" Version="1.1.201" />
         <PackageReference Include="FluentAvaloniaUI" Version="2.0.4" />
-        <PackageReference Include="Material.Icons" Version="2.0.11" />
-        <PackageReference Include="Material.Icons.Avalonia" Version="2.0.1" />
-        <PackageReference Include="Semi.Avalonia" Version="11.0.1" />
-        <PackageReference Include="Semi.Avalonia.DataGrid" Version="11.0.1" />
+        <PackageReference Include="Projektanker.Icons.Avalonia" Version="8.2.0" />
+        <PackageReference Include="Projektanker.Icons.Avalonia.MaterialDesign" Version="8.2.0" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <Reference Include="CodeWalker.Core">
+        <HintPath>..\..\..\Downloads\CodeWalker30_dev45\CodeWalker30_dev45\CodeWalker.Core.dll</HintPath>
+      </Reference>
+      <Reference Include="SharpDX.Mathematics">
+        <HintPath>..\..\..\Downloads\CodeWalker30_dev45\CodeWalker30_dev45\SharpDX.Mathematics.dll</HintPath>
+      </Reference>
     </ItemGroup>
 </Project>
