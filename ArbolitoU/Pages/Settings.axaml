@@ -8,29 +8,47 @@
              x:Class="ArbolitoU.Pages.Settings">
     <Grid Margin="20">
         <ScrollViewer>
-            <StackPanel Orientation="Vertical">
+            <StackPanel>
                 <Label FontWeight="DemiBold" FontSize="30" Content="Settings"></Label>
                 <ui:SettingsExpander Description="Output path and GTAV path" Header="Paths" IconSource="OpenFile" Margin="0,10,0,0">
                     <ui:SettingsExpanderItem Content="Grand Theft Auto V" Description="Set your GTA V Path">
                         <ui:SettingsExpanderItem.Footer>
                             <StackPanel Orientation="Horizontal">
-                                <TextBox x:Name="tbGTApath" Width="400"/>
-                                <Button PointerPressed="BtnGTAsearch_OnPointerPressed" x:Name="btnGTAsearch" mdi:Attached.Icon="mdi-folder-search" Width="35" Height="35" Margin="10,0,0,0"></Button>
+                                <TextBox IsReadOnly="True" x:Name="tbGTApath" Width="400"/>
+                                <Button Click="BtnGTAsearch_OnClick" x:Name="btnGTAsearch" mdi:Attached.Icon="mdi-folder-search" Width="35" Height="35" Margin="10,0,0,0"></Button>
                             </StackPanel>
                         </ui:SettingsExpanderItem.Footer>
                     </ui:SettingsExpanderItem>
                     <ui:SettingsExpanderItem Content="Output" Description="Set your Output folder">
                         <ui:SettingsExpanderItem.Footer>
                             <StackPanel Orientation="Horizontal">
-                                <TextBox x:Name="tbOutputPath" Width="400"/>
-                                <Button PointerPressed="BtnOutputSearch_OnPointerPressed" x:Name="btnOutputSearch" mdi:Attached.Icon="mdi-folder-search" Width="35" Height="35" Margin="10,0,0,0"></Button>
+                                <TextBox IsReadOnly="True" x:Name="tbOutputPath" Width="400"/>
+                                <Button Click="BtnOutputSearch_OnClick" x:Name="btnOutputSearch" mdi:Attached.Icon="mdi-folder-search" Width="35" Height="35" Margin="10,0,0,0"></Button>
                             </StackPanel>
                         </ui:SettingsExpanderItem.Footer>
                     </ui:SettingsExpanderItem>
                 </ui:SettingsExpander>
-
             </StackPanel>
         </ScrollViewer>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button x:Name="BtnSaveSettings" Click="BtnSaveSettings_OnClick" Margin="0,0,10,0" Height="40" Width="140">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <mdi:Icon Value="mdi-content-save"></mdi:Icon>
+                        <Label Content="Save Settings"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button x:Name="BtnResetSettings" Click="BtnResetSettings_OnClick" Height="40" Width="140">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <mdi:Icon Value="mdi-content-save-off"></mdi:Icon>
+                        <Label Content="Reset Settings"/>
+                    </StackPanel>
+                </Button.Content>     
+            </Button>
+            
+        </StackPanel>
 
     </Grid>
 </UserControl>

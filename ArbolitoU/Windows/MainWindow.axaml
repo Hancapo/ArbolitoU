@@ -5,7 +5,7 @@
         xmlns:i="https://github.com/projektanker/icons.avalonia"
         mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
         TransparencyLevelHint="AcrylicBlur"
-        Background="Transparent"
+        Background="Black"
         xmlns:ic="using:FluentAvalonia.FluentIcons"
         xmlns:ui="using:FluentAvalonia.UI.Controls"
         x:Class="ArbolitoU.MainWindow"
@@ -16,8 +16,8 @@
                 <ExperimentalAcrylicMaterial
                     BackgroundSource="Digger"
                     TintColor="Black"
-                    TintOpacity="0.4"
-                    MaterialOpacity="0.95" />
+                    TintOpacity="1"
+                    MaterialOpacity="0.9" />
             </ExperimentalAcrylicBorder.Material>
         </ExperimentalAcrylicBorder>
         <Grid RowDefinitions="40,*,50">
@@ -35,7 +35,7 @@
                         </MenuItem>
                         <MenuItem Header="Help">
                             <MenuItem i:MenuItem.Icon="mdi-github" Header="Report Bug"/>
-                            <MenuItem i:MenuItem.Icon="mdi-cat" Header="Wiam"/>
+                            <MenuItem x:Name="MenuItemWiam" PointerPressed="MenuItemWiam_OnPointerPressed" i:MenuItem.Icon="mdi-cat" Header="Wiam"/>
                             <MenuItem i:MenuItem.Icon="mdi-information"  Header="About"/>
                         </MenuItem>
                     </Menu>
@@ -48,7 +48,7 @@
                         <ui:NavigationViewItem x:Name="SettingsItem" IconSource="Settings" PointerPressed="SettingsItem_OnPointerPressed" Content="Settings" />
                         <ui:NavigationViewItemSeparator/>
                         <ui:NavigationViewItemHeader Content="Map Tools"/>
-                        <ui:NavigationViewItem IconSource="Map" Content="YMAP Tools">
+                        <ui:NavigationViewItem IconSource="Map" Content="Map Data">
                             <ui:NavigationViewItem.MenuItems>
                                 <ui:NavigationViewItem Content="Splitter" IconSource="XboxOneConsole"/>
                                 <ui:NavigationViewItem Content="Merger" IconSource="CloudOff"/>
@@ -56,7 +56,7 @@
                         </ui:NavigationViewItem>
                         <ui:NavigationViewItemSeparator/>
                         <ui:NavigationViewItemHeader Content="Misc Tools"/>
-                        <ui:NavigationViewItem x:Name="FileExtItem" PointerPressed="FileExtItem_OnPointerPressed" IconSource="ImageAltTextFilled" Content="File Extractor"/>
+                        <ui:NavigationViewItem x:Name="FileExtItem" PointerPressed="FileExtItem_OnPointerPressed" IconSource="ImageAltTextFilled" Content="Asset Extractor"/>
 
                     </ui:NavigationView.MenuItems>
                     <ui:Frame x:Name="ArbolitoFrame"/>

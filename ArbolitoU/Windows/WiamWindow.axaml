@@ -1,0 +1,16 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:anim="https://github.com/whistyun/AnimatedImage.Avalonia"
+             xmlns:arbolitoU="clr-namespace:ArbolitoU"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="500"
+             x:Class="ArbolitoU.Windows.WiamWindow">
+    <Grid>
+        <StackPanel>
+            <Label HorizontalAlignment="Center" Margin="10">May WIAM be with you in your modding journey.</Label>
+            <Image Width="300" Margin="10" anim:ImageBehavior.AnimatedSource="avares://ArbolitoU/Images/wiam-cat-flower.gif" />
+
+        </StackPanel>
+    </Grid>
+</UserControl>
