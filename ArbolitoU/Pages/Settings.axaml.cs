@@ -5,15 +5,9 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
-using Avalonia.Media;
 using Avalonia.Platform.Storage;
-using Avalonia.Threading;
 using FluentAvalonia.UI.Controls;
-using MsBox.Avalonia;
-using MsBox.Avalonia.Enums;
-using SharpDX;
 using static System.Media.SystemSounds;
-using Color = Avalonia.Media.Color;
 
 namespace ArbolitoU.Pages;
 

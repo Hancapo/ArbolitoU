@@ -18,8 +18,6 @@ using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Media.Animation;
 using FluentAvalonia.UI.Windowing;
 using Microsoft.Win32;
-using MsBox.Avalonia;
-using MsBox.Avalonia.Enums;
 
 namespace ArbolitoU;
 
@@ -233,8 +231,18 @@ internal class ArbolitoSplashScreen(MainWindow owner) : IApplicationSplashScreen
                                     selectedPath = manualFolder[0]?.Path.LocalPath;
                                     validGtaPathB = File.Exists(selectedPath + "\\GTA5.exe");
                                 }
-
-                                Program.ArbolitoSettings._ArbolitoSettings.gtapath = selectedPath;
+                                ArbolitoSettings arbolitoSettings3 = new();
+                                if (Program.ArbolitoSettings is null)
+                                {
+                                    arbolitoSettings3 = new ArbolitoSettings
+                                    {
+                                        _ArbolitoSettings = new SettingsContainer()
+                                        {
+                                            gtapath = selectedPath
+                                        }
+                                    };
+                                }
+                                Program.ArbolitoSettings = arbolitoSettings3;
                             }
                         }
                     }).Wait();

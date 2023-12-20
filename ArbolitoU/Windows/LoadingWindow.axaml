@@ -7,9 +7,9 @@
         xmlns:i="https://github.com/projektanker/icons.avalonia">
     <Grid>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <i:Icon Value="mdi-tree" Foreground="LawnGreen" FontSize="200" />
+            <Image Height="256" Source="avares://ArbolitoU/icon-512.png"></Image>
             <TextBlock Text="ArbolitoU" FontSize="50" Foreground="White" HorizontalAlignment="Center" />
-            <ProgressBar Margin="0,10,0,10" Height="7" IsIndeterminate="True" HorizontalAlignment="Center"/>
+            <ProgressBar x:Name="pbArbolitoLoading" Margin="0,10,0,10" Height="7" IsIndeterminate="True" HorizontalAlignment="Center"/>
             <TextBlock IsVisible="False" FontFamily="{StaticResource NunitoFont}" MaxHeight="25" Text="Idle" MaxLines="1" MaxWidth="1200" x:Name="tbLoadingStatus" FontSize="20" HorizontalAlignment="Center"/>
         </StackPanel>
 
