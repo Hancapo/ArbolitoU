@@ -34,9 +34,13 @@
 
     <ItemGroup>
       <None Remove="Images\wiam-cat-flower.gif" />
+      <AvaloniaResource Include="CustomFonts\Google\Nunito-Regular.ttf">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AvaloniaResource>
       <AvaloniaResource Include="Images\wiam-cat-flower.gif">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </AvaloniaResource>
+      <None Remove="CustomFonts\Nunito-Regular.ttf" />
     </ItemGroup>
 
 

@@ -6,6 +6,7 @@
         mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
         TransparencyLevelHint="AcrylicBlur"
         Background="Black"
+        WindowStartupLocation="CenterOwner"
         xmlns:ic="using:FluentAvalonia.FluentIcons"
         xmlns:ui="using:FluentAvalonia.UI.Controls"
         x:Class="ArbolitoU.MainWindow"

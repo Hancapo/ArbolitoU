@@ -46,13 +46,7 @@ class Program
     
     public static void ResetJsonSettings()
     {
-        ArbolitoSettings arbs = new();
-        if (ArbolitoSettings is null)
-        {
-            arbs = new ArbolitoSettings(){_ArbolitoSettings = new SettingsContainer(){gtapath = "", outputpath = ""}};
-        }
-        string jsonConfig = JsonSerializer.Serialize(arbs, new JsonSerializerOptions{WriteIndented = true});
-        File.WriteAllText("appsettings.json", jsonConfig);
+        File.Delete("appsettings.json");
     }
 
     

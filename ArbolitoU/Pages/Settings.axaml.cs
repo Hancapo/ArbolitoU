@@ -1,15 +1,19 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Text.Json;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
+using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using Avalonia.Threading;
+using FluentAvalonia.UI.Controls;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
+using SharpDX;
 using static System.Media.SystemSounds;
+using Color = Avalonia.Media.Color;
 
 namespace ArbolitoU.Pages;
 
@@ -40,21 +44,17 @@ public partial class Settings : UserControl
         if (!folder.Any()) return;
         var gtaPath = folder[0].Path.LocalPath;
         Program.ArbolitoSettings._ArbolitoSettings.gtapath = gtaPath;
-        if (ValidateGtaPath(gtaPath) && !string.IsNullOrEmpty(gtaPath))
+        if (!ValidateGtaPath(gtaPath) && !string.IsNullOrEmpty(gtaPath))
         {
-            var validPathMsg = MessageBoxManager.GetMessageBoxStandard("Valid GTA Path", "The GTA Path is valid", ButtonEnum.Ok, Icon.Info);
-            await validPathMsg.ShowAsync();
-            tbGTApath.Text = gtaPath;
+            var invalidPathDialog = new ContentDialog()
+            {
+                Title = "Invalid GTA Path",
+                Content = "The GTA Path is invalid",
+                PrimaryButtonText = "Ok"
+            };
+            Exclamation.Play();
+            await invalidPathDialog.ShowAsync();
         }
-        else
-        {
-            var invalidPathMsg = MessageBoxManager.GetMessageBoxStandard("Invalid GTA Path", "The GTA Path is invalid", ButtonEnum.Ok, Icon.Error);
-            await invalidPathMsg.ShowAsync();
-        }
-
-
-
-
     }
 
     private async void BtnOutputSearch_OnClick(object? sender, RoutedEventArgs e)
@@ -70,16 +70,8 @@ public partial class Settings : UserControl
         
         if(Directory.Exists(outputPath) && !string.IsNullOrEmpty(outputPath))
         {
-            var validOutpatPathMsg = MessageBoxManager.GetMessageBoxStandard("Valid Output Path", "The Output Path is valid", ButtonEnum.Ok, Icon.Info);
-            await validOutpatPathMsg.ShowAsPopupAsync(this);
             tbOutputPath.Text = outputPath;
-            Program.ArbolitoSettings._ArbolitoSettings.outputpath = outputPath;
-
-        }
-        else
-        {
-            var invalidOutpatPathMsg = MessageBoxManager.GetMessageBoxStandard("Invalid Output Path", "The Output Path is invalid", ButtonEnum.Ok, Icon.Error);
-            await invalidOutpatPathMsg.ShowAsPopupAsync(this);
+            if (Program.ArbolitoSettings != null) Program.ArbolitoSettings._ArbolitoSettings.outputpath = outputPath;
         }
         
         
@@ -90,40 +82,67 @@ public partial class Settings : UserControl
         return gtaPath != null && File.Exists(Path.Combine(gtaPath, "GTA5.exe"));
     }
 
-    private void BtnSaveSettings_OnClick(object? sender, RoutedEventArgs e)
+    private async void BtnSaveSettings_OnClick(object? sender, RoutedEventArgs e)
     {
-        if (ValidateGtaPath(Program.ArbolitoSettings._ArbolitoSettings.gtapath) && !string.IsNullOrEmpty(Program.ArbolitoSettings._ArbolitoSettings.outputpath) && Directory.Exists(tbOutputPath.Text))
+        if (ValidateGtaPath(Program.ArbolitoSettings?._ArbolitoSettings.gtapath) && !string.IsNullOrEmpty(Program.ArbolitoSettings?._ArbolitoSettings.outputpath) && Directory.Exists(tbOutputPath.Text))
         {
-            var confirmSaveMsg = MessageBoxManager.GetMessageBoxStandard("Save Settings", "Are you sure you want to save the settings?", ButtonEnum.YesNo, Icon.Info);
-            Hand.Play();
-            confirmSaveMsg.ShowAsPopupAsync(_mainWindow).ContinueWith(task =>
+            var confirmSaveDialog = new ContentDialog()
             {
-                if (task.Result == ButtonResult.Yes)
-                {
-                    Program.SaveJsonSettings();
-                    var savedMsg = MessageBoxManager.GetMessageBoxStandard("Settings Saved", "The settings have been saved", ButtonEnum.Ok, Icon.Info);
-                    savedMsg.ShowAsPopupAsync(_mainWindow);
-                    Asterisk.Play();
-                }
-            });
+                Title = "Save Settings",
+                Content = "Are you sure you want to save the settings?",
+                PrimaryButtonText = "Yes",
+                SecondaryButtonText = "No"
+            };
+
+            Hand.Play();
+            var result = await confirmSaveDialog.ShowAsync();
+
+            if (result != ContentDialogResult.Primary) return;
+            Program.SaveJsonSettings();
+
+            var savedDialog = new ContentDialog()
+            {
+                Title = "Settings Saved",
+                Content = "The settings have been saved",
+                PrimaryButtonText = "Ok"
+            };
+            Asterisk.Play();
+            await savedDialog.ShowAsync();
+        }
+        else
+        {
+            var invalidSaveDialog = new ContentDialog()
+            {
+                Title = "Invalid Settings",
+                Content = "The settings are invalid or incomplete",
+                PrimaryButtonText = "Ok"
+            };
+            Exclamation.Play();
+            await invalidSaveDialog.ShowAsync();
         }
     }
 
-    private void BtnResetSettings_OnClick(object? sender, RoutedEventArgs e)
+    private async void BtnResetSettings_OnClick(object? sender, RoutedEventArgs e)
     {
-        var confirmResetMsg = MessageBoxManager.GetMessageBoxStandard("Reset Settings", "Are you sure you want to reset the settings?", ButtonEnum.YesNo, Icon.Info);
-        confirmResetMsg.ShowAsPopupAsync(_mainWindow).ContinueWith(task =>
+        var resetSettingsDialog = new ContentDialog()
         {
-            Hand.Play();
-            if (task.Result == ButtonResult.Yes)
-            {
-                Program.ResetJsonSettings();
-                tbGTApath.Text = "";
-                tbOutputPath.Text = "";
-                var resetMsg = MessageBoxManager.GetMessageBoxStandard("Settings Reset", "The settings have been reset", ButtonEnum.Ok, Icon.Info);
-                resetMsg.ShowAsPopupAsync(_mainWindow);
-                Asterisk.Play();
-            }
-        });
+            Title = "Reset Settings",
+            Content = "Are you sure you want to reset the settings? This will close the program",
+            PrimaryButtonText = "Yes",
+            SecondaryButtonText = "No",
+        };
+        
+        
+        var result = await resetSettingsDialog.ShowAsync();
+        
+        if (result == ContentDialogResult.Primary)
+        {
+            tbGTApath.Text = "";
+            tbOutputPath.Text = "";
+            Program.ResetJsonSettings();
+            Asterisk.Play();
+            _mainWindow.Close();
+        }
+        
     }
 }

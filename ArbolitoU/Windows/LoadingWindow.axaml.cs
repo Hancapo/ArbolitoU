@@ -11,10 +11,4 @@ public partial class LoadingWindow : UserControl
     {
         InitializeComponent();
     }
-
-
-    public void checkGame()
-    {
-        
-    }
 }

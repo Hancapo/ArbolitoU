@@ -13,11 +13,12 @@ using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
+using CodeWalker.GameFiles;
+using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Media.Animation;
 using FluentAvalonia.UI.Windowing;
 using Microsoft.Win32;
 using MsBox.Avalonia;
-using MsBox.Avalonia.Base;
 using MsBox.Avalonia.Enums;
 
 namespace ArbolitoU;
@@ -27,19 +28,15 @@ public partial class MainWindow : AppWindow
     List<string> _ymapFiles = new();
     List<string> _ytypFiles = new();
     List<string> _trainTracksFiles = new();
+    public static GameFileCache gameFileCache;
     string _textFile = "";
 
     public MainWindow()
     {
+        TitleBar.ExtendsContentIntoTitleBar = true;
+        TitleBar.TitleBarHitTestType = TitleBarHitTestType.Complex;
         InitializeComponent();
-        if (!File.Exists("appsettings.json"))
-        {
-            Program.ArbolitoSettings = new ArbolitoSettings()
-            {
-                _ArbolitoSettings = new SettingsContainer(){gtapath = "", outputpath = ""}
-            };
-            Program.SaveJsonSettings();
-        }
+
         SplashScreen = new ArbolitoSplashScreen(this);
         HomeItem.IsSelected = true;
         ArbolitoFrame.Navigate(typeof(Home), null, new DrillInNavigationTransitionInfo());
@@ -128,11 +125,19 @@ internal class ArbolitoSplashScreen(MainWindow owner) : IApplicationSplashScreen
 {
     public string AppName { get; }
     public IImage AppIcon { get; }
-    public  MainWindow _owner = owner;
-    
-    public static Window? _mainWindow = ((IClassicDesktopStyleApplicationLifetime)Application.Current?.ApplicationLifetime!)?.MainWindow;
-    public object SplashScreenContent => new LoadingWindow();
+    public MainWindow _owner = owner;
+
+    public static Window? _mainWindow =
+        ((IClassicDesktopStyleApplicationLifetime)Application.Current?.ApplicationLifetime!)?.MainWindow;
+
+    public static LoadingWindow SplashScreen = new();
+    public object SplashScreenContent => SplashScreen;
     public int MinimumShowTime => 3000;
+
+    private static void UpdateStatusCache(string obj)
+    {
+        Dispatcher.UIThread.InvokeAsync(() => { SplashScreen.tbLoadingStatus.Text = obj; });
+    }
 
     private static Action InitApp =>
         () =>
@@ -142,15 +147,20 @@ internal class ArbolitoSplashScreen(MainWindow owner) : IApplicationSplashScreen
             {
                 Dispatcher.UIThread.InvokeAsync(async () =>
                 {
-                    IMsBox<ButtonResult> box = MessageBoxManager
-                        .GetMessageBoxStandard("Warning",
-                            "Arbolito couldn't find your GTA V folder. Now it will try to detect it automatically.",
-                            ButtonEnum.Ok);
-                    ButtonResult result = await box.ShowWindowDialogAsync(_mainWindow);
+                    var warningDialog = new ContentDialog()
+                    {
+                        Title = "Warning",
+                        Content =
+                            "Arbolito couldn't find your GTA V folder. \nNow it will try to detect it automatically.",
+                        PrimaryButtonText = "Ok",
+                        DefaultButton = ContentDialogButton.Primary
+                    };
+                    await warningDialog.ShowAsync();
                 }).Wait();
 
-                var steamGtavPath = Directory.GetParent(Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Rockstar Games\GTAV",
-                    "InstallFolderSteam", null)?.ToString());
+                var steamGtavPath = Directory.GetParent(Registry
+                    .GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Rockstar Games\GTAV",
+                        "InstallFolderSteam", null)?.ToString());
                 var normalGtavPath = Registry
                     .GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Rockstar Games\Grand Theft Auto V",
                         "InstallFolder", null)?.ToString();
@@ -172,25 +182,60 @@ internal class ArbolitoSplashScreen(MainWindow owner) : IApplicationSplashScreen
                 {
                     Dispatcher.UIThread.InvokeAsync(async () =>
                     {
-                        var box = MessageBoxManager
-                            .GetMessageBoxStandard("Success", $"Arbolito found your GTA V folder. \n{validGtaPath}\nIs this correct?",
-                                ButtonEnum.YesNo);
-                        var result = await box.ShowAsync();
-
-                        if (result == ButtonResult.Yes)
+                        var successDialog = new ContentDialog()
                         {
-                            Program.ArbolitoSettings._ArbolitoSettings.gtapath = validGtaPath;
+                            Title = "Success",
+                            Content = $"Arbolito has found your GTA V folder. \n{validGtaPath}\nIs this correct?",
+                            PrimaryButtonText = "Yes",
+                            SecondaryButtonText = "No",
+                            DefaultButton = ContentDialogButton.Primary,
+                        };
+                        var arbFoundResult = await successDialog.ShowAsync();
+
+                        if (arbFoundResult == ContentDialogResult.Primary)
+                        {
+                            ArbolitoSettings arbolitoSettings2 = new();
+                            if (Program.ArbolitoSettings is null)
+                            {
+                                arbolitoSettings2 = new ArbolitoSettings
+                                {
+                                    _ArbolitoSettings = new SettingsContainer()
+                                    {
+                                        gtapath = validGtaPath
+                                    }
+                                };
+                            }
+                            Program.ArbolitoSettings = arbolitoSettings2;
                             Program.SaveJsonSettings();
                         }
                         else
                         {
-                            Dispatcher.UIThread.InvokeAsync(async () =>
+                            var infoDialog = new ContentDialog()
                             {
-                                var box2 = MessageBoxManager
-                                    .GetMessageBoxStandard("Informatioon", "Select your GTA path.",
-                                        ButtonEnum.Ok);
-                                await box2.ShowAsync();
-                            }).Wait();
+                                Title = "Information",
+                                Content = "Please select your GTA path.",
+                                PrimaryButtonText = "Ok"
+                            };
+                            var noFoundManuallyResult = await infoDialog.ShowAsync();
+                            if (noFoundManuallyResult == ContentDialogResult.Primary)
+                            {
+                                var selectedPath = "";
+                                var validGtaPathB = false;
+                                while (!validGtaPathB)
+                                {
+                                    var manualFolder = await _mainWindow!.StorageProvider.OpenFolderPickerAsync(
+                                        new FolderPickerOpenOptions()
+                                        {
+                                            AllowMultiple = false,
+                                            Title = "Select your GTA V folder"
+                                        });
+                                    if (!manualFolder.Any()) continue;
+                                    selectedPath = manualFolder[0]?.Path.LocalPath;
+                                    validGtaPathB = File.Exists(selectedPath + "\\GTA5.exe");
+                                }
+
+                                Program.ArbolitoSettings._ArbolitoSettings.gtapath = selectedPath;
+                            }
                         }
                     }).Wait();
                 }
@@ -198,28 +243,64 @@ internal class ArbolitoSplashScreen(MainWindow owner) : IApplicationSplashScreen
                 {
                     Dispatcher.UIThread.InvokeAsync(async () =>
                     {
-                        var box = MessageBoxManager
-                            .GetMessageBoxStandard("Error", "Arbolito couldn't find your GTA V folder, select your path.",
-                                ButtonEnum.Ok);
-                        await box.ShowAsync();
-                        
-                        var folder = await _mainWindow.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions()
+                        var errorDialog = new ContentDialog()
                         {
-                            AllowMultiple = false,
-                            Title = "Select your GTA V folder"
-                        }); 
-                        
+                            Title = "Error",
+                            Content = "Arbolito couldn't find your GTA V folder, select your path.",
+                            PrimaryButtonText = "Ok"
+                        };
+                        await errorDialog.ShowAsync();
+
+                        var folder = await _mainWindow.StorageProvider.OpenFolderPickerAsync(
+                            new FolderPickerOpenOptions()
+                            {
+                                AllowMultiple = false,
+                                Title = "Select your GTA V folder"
+                            });
+
                         if (folder.Any())
                         {
                             Program.ArbolitoSettings._ArbolitoSettings.gtapath = folder[0].Path.LocalPath;
                         }
-                        
                     }).Wait();
                 }
             }
 
-            //wait for the user to select the GTA folder
+            if (string.IsNullOrEmpty(Program.ArbolitoSettings._ArbolitoSettings.outputpath))
+            {
+                Dispatcher.UIThread.InvokeAsync(async () =>
+                {
+                    var outputDialog = new ContentDialog()
+                    {
+                        Title = "Warning",
+                        Content = "The output path is not set. Please set it now.",
+                        PrimaryButtonText = "Ok",
+                        DefaultButton = ContentDialogButton.Primary
+                    };
+                    await outputDialog.ShowAsync();
+
+                    var folder = await _mainWindow.StorageProvider.OpenFolderPickerAsync(
+                        new FolderPickerOpenOptions()
+                        {
+                            AllowMultiple = false,
+                            Title = "Select your output folder"
+                        });
+
+                    if (folder.Any())
+                    {
+                        Program.ArbolitoSettings._ArbolitoSettings.outputpath = folder[0].Path.LocalPath;
+                        Program.SaveJsonSettings();
+                    }
+                }).Wait();
+            }
+
+            GTA5Keys.LoadFromPath(Program.ArbolitoSettings._ArbolitoSettings.gtapath);
+            MainWindow.gameFileCache = new GameFileCache(2147483648, 10,
+                Program.ArbolitoSettings._ArbolitoSettings.gtapath, null, false,
+                "Installers;_CommonRedist");
+            Task.Run(() => MainWindow.gameFileCache.Init(UpdateStatusCache, UpdateStatusCache)).Wait();
         };
+
 
     public Task RunTasks(CancellationToken cancellationToken)
     {

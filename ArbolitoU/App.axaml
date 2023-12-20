@@ -4,6 +4,9 @@
              RequestedThemeVariant="Dark"
              xmlns:sty="using:FluentAvalonia.Styling">
     <Application.Styles>
-        <sty:FluentAvaloniaTheme />
+        <sty:FluentAvaloniaTheme PreferUserAccentColor="True" PreferSystemTheme="True" />
     </Application.Styles>
+    <Application.Resources>
+        <FontFamily x:Key="NunitoFont">CustomFonts\Google\Nunito-Regular.ttf#Nunito</FontFamily>
+    </Application.Resources>
 </Application>
