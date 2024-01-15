@@ -27,18 +27,14 @@
                 <StackPanel>
                     <Menu>
                         <MenuItem Header="File">
-                            <MenuItem i:MenuItem.Icon="mdi-file-multiple" Header="Select File(s)">
-                                <MenuItem x:Name="MiSelectYMAP" PointerPressed="MiSelectYMAP_OnPointerPressed" i:MenuItem.Icon="mdi-map-legend" Header="Select YMAP(s)"/>
-                                <MenuItem x:Name="MiSelectYTYP" PointerPressed="MiSelectYTYP_OnPointerPressed" i:MenuItem.Icon="mdi-book-cog-outline" Header="Select YTYP(s)"/>
-                                <MenuItem x:Name="MiSelectTrainTracks" PointerPressed="MiSelectTrainTracks_OnPointerPressed" i:MenuItem.Icon="mdi-train" Header="Select Train Track(s)"/>
-                                <MenuItem x:Name="MiSelectTextFile" PointerPressed="MiSelectTextFile_OnPointerPressed" i:MenuItem.Icon="mdi-file-document-outline" Header="Select Text File"/>
+                            <MenuItem x:Name="MenuItemOpenFiles" PointerPressed="MenuItemOpenFiles_OnPointerPressed" i:MenuItem.Icon="mdi-file-multiple" Header="Select File(s)">
                             </MenuItem>
                             <MenuItem x:Name="MenuItemQuit" PointerPressed="MenuItemQuit_OnPointerPressed" i:MenuItem.Icon="mdi-exit-run" Header="Quit"/>
                         </MenuItem>
                         <MenuItem Header="Help">
-                            <MenuItem i:MenuItem.Icon="mdi-github" Header="Report Bug"/>
+                            <MenuItem i:MenuItem.Icon="mdi-github" x:Name="MiReportIssue" PointerPressed="MiReportIssue_OnPointerPressed" Header="Report Bug"/>
                             <MenuItem x:Name="MenuItemWiam" PointerPressed="MenuItemWiam_OnPointerPressed" i:MenuItem.Icon="mdi-cat" Header="Wiam"/>
-                            <MenuItem i:MenuItem.Icon="mdi-information"  Header="About"/>
+                            <MenuItem x:Name="MenuItemAbout" PointerPressed="MenuItemAbout_OnPointerPressed" i:MenuItem.Icon="mdi-information"  Header="About"/>
                         </MenuItem>
                     </Menu>
                 </StackPanel>

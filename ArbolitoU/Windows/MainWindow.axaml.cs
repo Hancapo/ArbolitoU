@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -23,11 +24,8 @@ namespace ArbolitoU;
 
 public partial class MainWindow : AppWindow
 {
-    List<string> _ymapFiles = new();
-    List<string> _ytypFiles = new();
-    List<string> _trainTracksFiles = new();
     public static GameFileCache gameFileCache;
-    string _textFile = "";
+    public static FileManager fm = new FileManager();
 
     public MainWindow()
     {
@@ -58,46 +56,6 @@ public partial class MainWindow : AppWindow
         Close();
     }
 
-    private async void MiSelectYMAP_OnPointerPressed(object? sender, PointerPressedEventArgs e)
-    {
-        var ymapSelection = await GetTopLevel(this)!.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
-        {
-            Title = "Select YMAP(s) file(s)",
-            AllowMultiple = true,
-            FileTypeFilter = new[] { new FilePickerFileType("YMAP(s)") { Patterns = new[] { "*.ymap" } } }
-        });
-    }
-
-    private void MiSelectYTYP_OnPointerPressed(object? sender, PointerPressedEventArgs e)
-    {
-        var ytypSelection = GetTopLevel(this)!.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
-        {
-            Title = "Select YTYP(s) file(s)",
-            AllowMultiple = true,
-            FileTypeFilter = new[] { new FilePickerFileType("YTYP(s)") { Patterns = new[] { "*.ytyp" } } }
-        });
-    }
-
-    private void MiSelectTrainTracks_OnPointerPressed(object? sender, PointerPressedEventArgs e)
-    {
-        var trainTracksSelection = GetTopLevel(this)!.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
-        {
-            Title = "Select Train Tracks file(s)",
-            AllowMultiple = true,
-            FileTypeFilter = new[] { new FilePickerFileType("Train Tracks") { Patterns = new[] { "*.dat" } } }
-        });
-    }
-
-    private void MiSelectTextFile_OnPointerPressed(object? sender, PointerPressedEventArgs e)
-    {
-        var textFileSelection = GetTopLevel(this)!.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
-        {
-            Title = "Select Text file",
-            AllowMultiple = false,
-            FileTypeFilter = new[] { new FilePickerFileType("Text File") { Patterns = new[] { "*.txt" } } }
-        });
-    }
-
     private void SettingsItem_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         if (ArbolitoFrame.Content?.GetType() != typeof(Settings))
@@ -117,13 +75,38 @@ public partial class MainWindow : AppWindow
         };
         wiamWindow.ShowDialog(this);
     }
+
+    private void MiReportIssue_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        //Open Github issues page
+        
+        
+        Process.Start(@"https://github.com/Hancapo/ArbolitoU/issues");
+        
+    }
+
+    private void MenuItemOpenFiles_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        var openFiles = this.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
+        {
+            Title = "Select game assets",
+            AllowMultiple = true,
+            FileTypeFilter = fm.GetSupportedFilesFilter()
+        });
+        
+    }
+
+    private void MenuItemAbout_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        FileSelection fs = new();
+        fs.ShowDialog(this);
+    }
 }
 
 internal class ArbolitoSplashScreen(MainWindow owner) : IApplicationSplashScreen
 {
     public string AppName { get; }
     public IImage AppIcon { get; }
-    public MainWindow _owner = owner;
 
     public static Window? _mainWindow =
         ((IClassicDesktopStyleApplicationLifetime)Application.Current?.ApplicationLifetime!)?.MainWindow;
@@ -203,6 +186,7 @@ internal class ArbolitoSplashScreen(MainWindow owner) : IApplicationSplashScreen
                                     }
                                 };
                             }
+
                             Program.ArbolitoSettings = arbolitoSettings2;
                             Program.SaveJsonSettings();
                         }
@@ -231,6 +215,7 @@ internal class ArbolitoSplashScreen(MainWindow owner) : IApplicationSplashScreen
                                     selectedPath = manualFolder[0]?.Path.LocalPath;
                                     validGtaPathB = File.Exists(selectedPath + "\\GTA5.exe");
                                 }
+
                                 ArbolitoSettings arbolitoSettings3 = new();
                                 if (Program.ArbolitoSettings is null)
                                 {
@@ -242,6 +227,7 @@ internal class ArbolitoSplashScreen(MainWindow owner) : IApplicationSplashScreen
                                         }
                                     };
                                 }
+
                                 Program.ArbolitoSettings = arbolitoSettings3;
                             }
                         }
@@ -258,23 +244,35 @@ internal class ArbolitoSplashScreen(MainWindow owner) : IApplicationSplashScreen
                             PrimaryButtonText = "Ok"
                         };
                         await errorDialog.ShowAsync();
-
-                        var folder = await _mainWindow.StorageProvider.OpenFolderPickerAsync(
-                            new FolderPickerOpenOptions()
-                            {
-                                AllowMultiple = false,
-                                Title = "Select your GTA V folder"
-                            });
-
-                        if (folder.Any())
-                        {
-                            Program.ArbolitoSettings._ArbolitoSettings.gtapath = folder[0].Path.LocalPath;
-                        }
                     }).Wait();
+
+                    var folder = _mainWindow?.StorageProvider.OpenFolderPickerAsync(
+                        new FolderPickerOpenOptions()
+                        {
+                            AllowMultiple = false,
+                            Title = "Select your GTA V folder",
+                        }
+                        );
+                    
+                    if (folder != null && folder.Result.Any())
+                    {
+                        Program.ArbolitoSettings._ArbolitoSettings.gtapath = folder.Result[0].Path.LocalPath;
+                    }
+                    if (folder.IsCanceled)
+                    {
+                        var noFolderSelectedDialog = new ContentDialog()
+                        {
+                            Title = "Error",
+                            Content = "You didn't select a folder, Arbolito will close now.",
+                            PrimaryButtonText = "Ok",
+                            DefaultButton = ContentDialogButton.Primary
+                        };
+                        noFolderSelectedDialog.ShowAsync(); 
+                    }
                 }
             }
 
-            if (string.IsNullOrEmpty(Program.ArbolitoSettings._ArbolitoSettings.outputpath))
+            if (string.IsNullOrEmpty(Program.ArbolitoSettings!._ArbolitoSettings.outputpath))
             {
                 Dispatcher.UIThread.InvokeAsync(async () =>
                 {
@@ -287,7 +285,7 @@ internal class ArbolitoSplashScreen(MainWindow owner) : IApplicationSplashScreen
                     };
                     await outputDialog.ShowAsync();
 
-                    var folder = await _mainWindow.StorageProvider.OpenFolderPickerAsync(
+                    var folder = await _mainWindow!.StorageProvider.OpenFolderPickerAsync(
                         new FolderPickerOpenOptions()
                         {
                             AllowMultiple = false,
