@@ -10,11 +10,26 @@
         <Company>MrVicho Software</Company>
         <AssemblyVersion>0.0.1</AssemblyVersion>
         <FileVersion>0.0.1</FileVersion>
-        <SignAssembly>true</SignAssembly>
-        <AssemblyOriginatorKeyFile>new.snk</AssemblyOriginatorKeyFile>
-        <PublicSign>true</PublicSign>
         <ApplicationIcon>icon-512.ico</ApplicationIcon>
+        <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+        <PublishAot>False</PublishAot>
+        <DelaySign>False</DelaySign>
     </PropertyGroup>
+    <ItemGroup>
+      <AvaloniaXaml Remove="CustomFonts\**" />
+      <AvaloniaXaml Remove="Pages\MapToolsPages\**" />
+      <AvaloniaXaml Remove="Pages\MiscToolsPages\**" />
+      <Compile Remove="CustomFonts\**" />
+      <Compile Remove="Pages\MapToolsPages\**" />
+      <Compile Remove="Pages\MiscToolsPages\**" />
+      <EmbeddedResource Remove="CustomFonts\**" />
+      <EmbeddedResource Remove="Pages\MapToolsPages\**" />
+      <EmbeddedResource Remove="Pages\MiscToolsPages\**" />
+      <None Remove="CustomFonts\**" />
+      <None Remove="Pages\MapToolsPages\**" />
+      <None Remove="Pages\MiscToolsPages\**" />
+    </ItemGroup>
 
 
     <ItemGroup>
@@ -40,13 +55,9 @@
 
     <ItemGroup>
       <None Remove="Images\wiam-cat-flower.gif" />
-      <AvaloniaResource Include="CustomFonts\Google\Nunito-Regular.ttf">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </AvaloniaResource>
       <AvaloniaResource Include="Images\wiam-cat-flower.gif">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </AvaloniaResource>
-      <None Remove="CustomFonts\Nunito-Regular.ttf" />
       <None Remove="icon-512.ico" />
       <AvaloniaResource Include="icon-512.ico">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -72,17 +83,11 @@
 
 
     <ItemGroup>
-      <Folder Include="Pages\MapToolsPages\" />
-      <Folder Include="Pages\MiscToolsPages\" />
-    </ItemGroup>
-
-
-    <ItemGroup>
       <Reference Include="CodeWalker.Core">
-        <HintPath>..\..\..\Downloads\CodeWalker30_dev45\CodeWalker30_dev45\CodeWalker.Core.dll</HintPath>
+        <HintPath>..\..\..\..\..\Downloads\CodeWalker30_dev46\CodeWalker.Core.dll</HintPath>
       </Reference>
       <Reference Include="SharpDX.Mathematics">
-        <HintPath>..\..\..\Downloads\CodeWalker30_dev45\CodeWalker30_dev45\SharpDX.Mathematics.dll</HintPath>
+        <HintPath>..\..\..\..\..\Downloads\CodeWalker30_dev46\SharpDX.Mathematics.dll</HintPath>
       </Reference>
     </ItemGroup>
 </Project>

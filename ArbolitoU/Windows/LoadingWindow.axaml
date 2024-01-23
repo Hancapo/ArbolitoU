@@ -10,7 +10,7 @@
             <TextBlock Text="ArbolitoU" FontSize="50" Foreground="White" HorizontalAlignment="Center" />
             <ProgressBar x:Name="pbArbolitoLoading" Margin="0,10,0,10" Height="7" IsIndeterminate="True"
                          HorizontalAlignment="Center" />
-            <TextBlock IsVisible="False" FontFamily="{StaticResource NunitoFont}" MaxHeight="25" Text="Idle"
+            <TextBlock IsVisible="False" MaxHeight="25" Text="Idle"
                        MaxLines="1" MaxWidth="1200" x:Name="tbLoadingStatus" FontSize="20" HorizontalAlignment="Center" />
         </StackPanel>
     </Grid>
