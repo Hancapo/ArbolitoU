@@ -14,7 +14,7 @@ namespace ArbolitoU;
 class Program
 {
     internal static IConfigurationRoot? Configuration;
-    internal static ArbolitoSettings? ArbolitoSettings = new();
+    internal static ArbolitoSettings? ArbolitoSettings;
     [STAThread]
     public static void Main(string[] args)
     {

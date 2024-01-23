@@ -4,5 +4,5 @@ namespace ArbolitoU;
 
 public class ArbolitoSettings
 {
-    public SettingsContainer _ArbolitoSettings { get; set; } = new();
+    public SettingsContainer CurrentSettings { get; set; } = new();
 }

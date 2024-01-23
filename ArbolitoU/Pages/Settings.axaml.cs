@@ -19,8 +19,8 @@ public partial class Settings : UserControl
         InitializeComponent();
         try
         {
-            tbGTApath.Text = Program.ArbolitoSettings?._ArbolitoSettings.gtapath;
-            tbOutputPath.Text = Program.ArbolitoSettings?._ArbolitoSettings.outputpath;
+            tbGTApath.Text = Program.ArbolitoSettings?.CurrentSettings.gtapath;
+            tbOutputPath.Text = Program.ArbolitoSettings?.CurrentSettings.outputpath;
         }
         catch (Exception e)
         {
@@ -37,7 +37,7 @@ public partial class Settings : UserControl
         
         if (!folder.Any()) return;
         var gtaPath = folder[0].Path.LocalPath;
-        Program.ArbolitoSettings._ArbolitoSettings.gtapath = gtaPath;
+        Program.ArbolitoSettings.CurrentSettings.gtapath = gtaPath;
         if (!ValidateGtaPath(gtaPath) && !string.IsNullOrEmpty(gtaPath))
         {
             var invalidPathDialog = new ContentDialog()
@@ -65,7 +65,7 @@ public partial class Settings : UserControl
         if(Directory.Exists(outputPath) && !string.IsNullOrEmpty(outputPath))
         {
             tbOutputPath.Text = outputPath;
-            if (Program.ArbolitoSettings != null) Program.ArbolitoSettings._ArbolitoSettings.outputpath = outputPath;
+            if (Program.ArbolitoSettings != null) Program.ArbolitoSettings.CurrentSettings.outputpath = outputPath;
         }
         
         
@@ -78,7 +78,7 @@ public partial class Settings : UserControl
 
     private async void BtnSaveSettings_OnClick(object? sender, RoutedEventArgs e)
     {
-        if (ValidateGtaPath(Program.ArbolitoSettings?._ArbolitoSettings.gtapath) && !string.IsNullOrEmpty(Program.ArbolitoSettings?._ArbolitoSettings.outputpath) && Directory.Exists(tbOutputPath.Text))
+        if (ValidateGtaPath(Program.ArbolitoSettings?.CurrentSettings.gtapath) && !string.IsNullOrEmpty(Program.ArbolitoSettings?.CurrentSettings.outputpath) && Directory.Exists(tbOutputPath.Text))
         {
             var confirmSaveDialog = new ContentDialog()
             {

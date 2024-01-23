@@ -13,6 +13,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using Avalonia.Styling;
 using Avalonia.Threading;
 using CodeWalker.GameFiles;
 using FluentAvalonia.UI.Controls;
@@ -124,7 +125,7 @@ internal class ArbolitoSplashScreen(MainWindow owner) : IApplicationSplashScreen
         () =>
         {
             var validGtaPath = "";
-            if (string.IsNullOrEmpty(Program.ArbolitoSettings?._ArbolitoSettings.gtapath))
+            if (string.IsNullOrEmpty(Program.ArbolitoSettings?.CurrentSettings.gtapath))
             {
                 Dispatcher.UIThread.InvokeAsync(async () =>
                 {
@@ -139,21 +140,30 @@ internal class ArbolitoSplashScreen(MainWindow owner) : IApplicationSplashScreen
                     await warningDialog.ShowAsync();
                 }).Wait();
 
-                var steamGtavPath = Directory.GetParent(Registry
+                string steamGtavPath = "";
+                string normalGtavPath = "";
+                try
+                {
+                    steamGtavPath = Directory.GetParent((string)Registry
                     .GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Rockstar Games\GTAV",
-                        "InstallFolderSteam", null)?.ToString());
-                var normalGtavPath = Registry
+                        "InstallFolderSteam", null)).ToString();
+                    normalGtavPath = Registry
                     .GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Rockstar Games\Grand Theft Auto V",
                         "InstallFolder", null)?.ToString();
+                }
+                catch (Exception)
+                {
+
+                }
                 var exeExists = false;
 
-                if (steamGtavPath != null)
+                if (!string.IsNullOrEmpty(steamGtavPath))
                 {
                     exeExists = File.Exists(steamGtavPath + "\\GTA5.exe");
                     validGtaPath = steamGtavPath.ToString();
                 }
 
-                if (normalGtavPath != null && !exeExists)
+                if (!string.IsNullOrEmpty(normalGtavPath) && !exeExists)
                 {
                     exeExists = File.Exists(normalGtavPath + "\\GTA5.exe");
                     validGtaPath = normalGtavPath;
@@ -180,7 +190,7 @@ internal class ArbolitoSplashScreen(MainWindow owner) : IApplicationSplashScreen
                             {
                                 arbolitoSettings2 = new ArbolitoSettings
                                 {
-                                    _ArbolitoSettings = new SettingsContainer()
+                                    CurrentSettings = new SettingsContainer()
                                     {
                                         gtapath = validGtaPath
                                     }
@@ -221,7 +231,7 @@ internal class ArbolitoSplashScreen(MainWindow owner) : IApplicationSplashScreen
                                 {
                                     arbolitoSettings3 = new ArbolitoSettings
                                     {
-                                        _ArbolitoSettings = new SettingsContainer()
+                                        CurrentSettings = new SettingsContainer()
                                         {
                                             gtapath = selectedPath
                                         }
@@ -246,34 +256,54 @@ internal class ArbolitoSplashScreen(MainWindow owner) : IApplicationSplashScreen
                         await errorDialog.ShowAsync();
                     }).Wait();
 
-                    var folder = _mainWindow?.StorageProvider.OpenFolderPickerAsync(
+                    var folderGame = _mainWindow?.StorageProvider.OpenFolderPickerAsync(
                         new FolderPickerOpenOptions()
                         {
                             AllowMultiple = false,
                             Title = "Select your GTA V folder",
                         }
                         );
-                    
-                    if (folder != null && folder.Result.Any())
+
+                    if (folderGame != null && folderGame.Result.Any())
                     {
-                        Program.ArbolitoSettings._ArbolitoSettings.gtapath = folder.Result[0].Path.LocalPath;
+                        if (Program.ArbolitoSettings is null)
+                            Program.ArbolitoSettings = new ArbolitoSettings()
+                            {
+                                CurrentSettings = new SettingsContainer()
+                                {
+                                    gtapath = folderGame.Result[0].Path.LocalPath
+                                }
+                            };
+
                     }
-                    if (folder.IsCanceled)
+                    else
                     {
-                        var noFolderSelectedDialog = new ContentDialog()
+                        Dispatcher.UIThread.InvokeAsync(async () =>
                         {
-                            Title = "Error",
-                            Content = "You didn't select a folder, Arbolito will close now.",
-                            PrimaryButtonText = "Ok",
-                            DefaultButton = ContentDialogButton.Primary
-                        };
-                        noFolderSelectedDialog.ShowAsync(); 
+                            var noFolderSelectedDialog = new ContentDialog()
+                            {
+                                Title = "Error",
+                                Content = "You didn't select a folder, Arbolito will close now.",
+                                PrimaryButtonText = "Ok",
+                                DefaultButton = ContentDialogButton.Primary
+                            };
+                            await noFolderSelectedDialog.ShowAsync();
+
+                        }).Wait();
+                        Environment.Exit(0);
                     }
+
                 }
             }
 
-            if (string.IsNullOrEmpty(Program.ArbolitoSettings!._ArbolitoSettings.outputpath))
+            if (Program.ArbolitoSettings is null)
             {
+                Program.ArbolitoSettings = new ArbolitoSettings()
+                {
+                    CurrentSettings = new SettingsContainer()
+                };
+            }
+
                 Dispatcher.UIThread.InvokeAsync(async () =>
                 {
                     var outputDialog = new ContentDialog()
@@ -285,24 +315,39 @@ internal class ArbolitoSplashScreen(MainWindow owner) : IApplicationSplashScreen
                     };
                     await outputDialog.ShowAsync();
 
-                    var folder = await _mainWindow!.StorageProvider.OpenFolderPickerAsync(
+                    var folderOutput = _mainWindow?.StorageProvider.OpenFolderPickerAsync(
                         new FolderPickerOpenOptions()
                         {
                             AllowMultiple = false,
                             Title = "Select your output folder"
                         });
 
-                    if (folder.Any())
+                    if (folderOutput != null && folderOutput.Result.Any())
                     {
-                        Program.ArbolitoSettings._ArbolitoSettings.outputpath = folder[0].Path.LocalPath;
+                        Program.ArbolitoSettings.CurrentSettings.outputpath = folderOutput.Result[0].Path.LocalPath;
                         Program.SaveJsonSettings();
                     }
+                    else
+                    {
+                        Dispatcher.UIThread.InvokeAsync(async () =>
+                        {
+                            var noFolderSelectedDialog = new ContentDialog()
+                            {
+                                Title = "Error",
+                                Content = "You didn't select an output folder, Arbolito will close now.",
+                                PrimaryButtonText = "Ok",
+                                DefaultButton = ContentDialogButton.Primary
+                            };
+                            await noFolderSelectedDialog.ShowAsync();
+                        }).Wait();
+                        Environment.Exit(0);
+                    }
                 }).Wait();
-            }
 
-            GTA5Keys.LoadFromPath(Program.ArbolitoSettings._ArbolitoSettings.gtapath);
+
+            GTA5Keys.LoadFromPath(Program.ArbolitoSettings.CurrentSettings.gtapath);
             MainWindow.gameFileCache = new GameFileCache(2147483648, 10,
-                Program.ArbolitoSettings._ArbolitoSettings.gtapath, null, false,
+                Program.ArbolitoSettings.CurrentSettings.gtapath, null, false,
                 "Installers;_CommonRedist");
             Task.Run(() => MainWindow.gameFileCache.Init(UpdateStatusCache, UpdateStatusCache)).Wait();
         };
