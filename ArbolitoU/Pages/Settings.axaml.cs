@@ -17,14 +17,9 @@ public partial class Settings : UserControl
     public Settings()
     {
         InitializeComponent();
-        try
-        {
+        if(Program.ArbolitoSettings != null) {
             tbGTApath.Text = Program.ArbolitoSettings?.CurrentSettings.gtapath;
             tbOutputPath.Text = Program.ArbolitoSettings?.CurrentSettings.outputpath;
-        }
-        catch (Exception e)
-        {
-            // ignored
         }
     }
     private async void BtnGTAsearch_OnClick(object? sender, RoutedEventArgs e)

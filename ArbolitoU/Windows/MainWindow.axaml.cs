@@ -296,14 +296,8 @@ internal class ArbolitoSplashScreen(MainWindow owner) : IApplicationSplashScreen
                 }
             }
 
-            if (Program.ArbolitoSettings is null)
+            if (string.IsNullOrEmpty(Program.ArbolitoSettings?.CurrentSettings.outputpath))
             {
-                Program.ArbolitoSettings = new ArbolitoSettings()
-                {
-                    CurrentSettings = new SettingsContainer()
-                };
-            }
-
                 Dispatcher.UIThread.InvokeAsync(async () =>
                 {
                     var outputDialog = new ContentDialog()
@@ -343,6 +337,9 @@ internal class ArbolitoSplashScreen(MainWindow owner) : IApplicationSplashScreen
                         Environment.Exit(0);
                     }
                 }).Wait();
+            }
+                
+                
 
 
             GTA5Keys.LoadFromPath(Program.ArbolitoSettings.CurrentSettings.gtapath);
