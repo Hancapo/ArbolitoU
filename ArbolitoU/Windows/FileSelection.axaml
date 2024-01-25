@@ -2,10 +2,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="800"
+		Width="450"
+		Height="800"
         x:Class="ArbolitoU.Windows.FileSelection"
         Title="FileSelection">
-    <Grid ShowGridLines="True" RowDefinitions="*,*">
-        
+    <Grid ShowGridLines="True" RowDefinitions="8*,*">
+		<StackPanel>
+			<ListBox>
+				
+			</ListBox>
+		</StackPanel>
     </Grid>
 </Window>

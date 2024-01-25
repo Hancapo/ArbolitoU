@@ -80,10 +80,10 @@ public partial class MainWindow : AppWindow
     private void MiReportIssue_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         //Open Github issues page
-        
-        
+
+
         Process.Start(@"https://github.com/Hancapo/ArbolitoU/issues");
-        
+
     }
 
     private void MenuItemOpenFiles_OnPointerPressed(object? sender, PointerPressedEventArgs e)
@@ -94,7 +94,7 @@ public partial class MainWindow : AppWindow
             AllowMultiple = true,
             FileTypeFilter = fm.GetSupportedFilesFilter()
         });
-        
+
     }
 
     private void MenuItemAbout_OnPointerPressed(object? sender, PointerPressedEventArgs e)
@@ -139,34 +139,36 @@ internal class ArbolitoSplashScreen(MainWindow owner) : IApplicationSplashScreen
                     };
                     await warningDialog.ShowAsync();
                 }).Wait();
+                string? steamGTAVReg = (string?)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Rockstar Games\GTAV",
+                        "InstallFolderSteam", null);
+                string? normalGTAVReg = (string?)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Rockstar Games\Grand Theft Auto V",
+                    "InstallFolder", null);
 
-                string steamGtavPath = "";
-                string normalGtavPath = "";
-                try
-                {
-                    steamGtavPath = Directory.GetParent((string)Registry
-                    .GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Rockstar Games\GTAV",
-                        "InstallFolderSteam", null)).ToString();
-                    normalGtavPath = Registry
-                    .GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Rockstar Games\Grand Theft Auto V",
-                        "InstallFolder", null)?.ToString();
-                }
-                catch (Exception)
-                {
+                var steamGTAVpath = "";
+                var normalGTAVPath = "";
 
+                if (steamGTAVReg != null)
+                {
+                    steamGTAVpath = Directory.GetParent(steamGTAVReg).FullName;
                 }
+                if (normalGTAVReg != null)
+                {
+                    normalGTAVPath = normalGTAVReg?.ToString();
+                }
+
+
                 var exeExists = false;
 
-                if (!string.IsNullOrEmpty(steamGtavPath))
+                if (!string.IsNullOrEmpty(steamGTAVpath))
                 {
-                    exeExists = File.Exists(steamGtavPath + "\\GTA5.exe");
-                    validGtaPath = steamGtavPath.ToString();
+                    exeExists = File.Exists(steamGTAVpath + "\\GTA5.exe");
+                    validGtaPath = steamGTAVpath.ToString();
                 }
 
-                if (!string.IsNullOrEmpty(normalGtavPath) && !exeExists)
+                if (!string.IsNullOrEmpty(normalGTAVPath) && !exeExists)
                 {
-                    exeExists = File.Exists(normalGtavPath + "\\GTA5.exe");
-                    validGtaPath = normalGtavPath;
+                    exeExists = File.Exists(normalGTAVPath + "\\GTA5.exe");
+                    validGtaPath = normalGTAVPath;
                 }
 
                 if (exeExists)
@@ -338,8 +340,8 @@ internal class ArbolitoSplashScreen(MainWindow owner) : IApplicationSplashScreen
                     }
                 }).Wait();
             }
-                
-                
+
+
 
 
             GTA5Keys.LoadFromPath(Program.ArbolitoSettings.CurrentSettings.gtapath);
