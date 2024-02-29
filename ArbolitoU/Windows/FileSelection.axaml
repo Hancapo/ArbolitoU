@@ -5,11 +5,12 @@
         mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="800"
 		Width="450"
 		Height="800"
+        WindowStartupLocation="CenterOwner"
         x:Class="ArbolitoU.Windows.FileSelection"
         Title="FileSelection">
     <Grid ShowGridLines="True" RowDefinitions="8*,*">
-		<StackPanel>
-			<ListBox>
+		<StackPanel VerticalAlignment="Center">
+			<ListBox Width="400" Height="650" Background="Aqua">
 				
 			</ListBox>
 		</StackPanel>
